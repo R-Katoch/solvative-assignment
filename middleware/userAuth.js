@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/user');
 
 const generateToken = async (userId) => {
-  // Generate a unique session identifier
   const sessionId = new Date().getTime().toString();
 
   await updateUserSession(userId, sessionId);
@@ -14,13 +13,12 @@ const generateToken = async (userId) => {
 };
 
 const verifyToken = async (req, res, next) => {
-  // Extracting the token from the Authorization header
   const header = req.headers.authorization;
   if (!header) {
     return res.status(401).json({ message: 'No token provided' });
   }
 
-  const token = header.split(' ')[1]; // Assuming the Authorization header contains 'Bearer [token]'
+  const token = header.split(' ')[1];
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });
   }
@@ -28,7 +26,6 @@ const verifyToken = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Retrieve the current valid sessionId for this user
     const currentSessionId = await getCurrentUserSession(decoded.userId);
     if (decoded.sessionId !== currentSessionId) {
       return res.status(401).json({ message: 'Token is no longer valid' });

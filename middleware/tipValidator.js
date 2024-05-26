@@ -2,21 +2,21 @@ const { check, validationResult } = require('express-validator');
 
 const validateCalculateTip = [
   check('place')
-    .trim() // Trim whitespace
+    .trim()
     .not().isEmpty()
     .withMessage('Place cannot be empty'),
 
   check('totalAmount')
     .not().isEmpty().withMessage('Total amount cannot be empty')
     .isNumeric()
-    .withMessage('Total amount must be a number'), // Ensures the total amount is a number
+    .withMessage('Total amount must be a number'),
 
   check('tipPercentage')
     .not().isEmpty().withMessage('Tip percentage cannot be empty')
     .isNumeric()
-    .withMessage('Tip percentage must be a number') // Ensures the tip percentage is a number
+    .withMessage('Tip percentage must be a number')
     .isFloat({ min: 0, max: 100 })
-    .withMessage('Tip percentage must be between 0 and 100'), // Optionally ensure a valid percentage range
+    .withMessage('Tip percentage must be between 0 and 100'),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -32,13 +32,13 @@ const validateGetTip = [
     .not().isEmpty().withMessage('Start date cannot be empty')
     .isISO8601()
     .withMessage('Start date must be in the format YYYY-MM-DD')
-    .toDate(), // Converts to JS Date object for possible further processing
+    .toDate(),
 
   check('endDate')
     .not().isEmpty().withMessage('End date cannot be empty')
     .isISO8601()
     .withMessage('End date must be in the format YYYY-MM-DD')
-    .toDate(), // Converts to JS Date object for possible further processing
+    .toDate(),
 
   (req, res, next) => {
     const errors = validationResult(req);

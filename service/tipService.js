@@ -23,7 +23,6 @@ const calculateTipService = async (totalAmount, tipPercentage, place, userId) =>
 };
 
 const getTipService = async (startDate, endDate, userId) => {
-  // Adjust endDate to include the entire day
   const adjustedEndDate = new Date(endDate);
   adjustedEndDate.setHours(23, 59, 59, 999);
 

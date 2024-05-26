@@ -6,7 +6,7 @@ const util = require('util');
 const User = require('../model/user');
 const { generateToken } = require('../middleware/userAuth');
 
-const rename = util.promisify(fs.rename); // Promisify rename to use with async/await
+const rename = util.promisify(fs.rename);
 
 const userSignupService = async (data, file) => {
   try {
@@ -24,7 +24,7 @@ const userSignupService = async (data, file) => {
       const newPath = path.join('uploads/profilePictures', `${data.userId}${path.extname(file.originalname)}`);
       await rename(oldPath, newPath); // Rename the file after user is created
       data.profilePicture = newPath; // Update data object with new file path
-      await user.update({ profilePicture: newPath }); // Update the user's profile picture path in the database
+      await user.update({ profilePicture: newPath });
     }
 
     const token = await generateToken(data.userId);

@@ -14,7 +14,7 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST || 'localhost',
   port: DB_PORT || 3306,
   dialect: 'mysql',
-  logging: console.log, // Enable logging in development, can be set to false in production via .env
+  logging: console.log,
   pool: {
     max: 10,
     min: 0,
@@ -22,11 +22,11 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     idle: 10000,
   },
   define: {
-    timestamps: true, // If you prefer all your models to have timestamps
-    paranoid: true, // If you prefer all your models to have soft delete
+    timestamps: true,
+    paranoid: true,
   },
   retry: {
-    max: 3, // Set the number of retries on a new connection
+    max: 3,
   },
 });
 
