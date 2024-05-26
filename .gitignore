@@ -4,4 +4,4 @@ node_modules
 
 pnpm-lock.yaml
 
-./uploads
+./uploads/profilePictures
