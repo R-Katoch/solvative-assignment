@@ -1,0 +1,93 @@
+{"paths": {
+    "/tip/calculate": {
+      "post": {
+        "tags": ["Tip"],
+        "summary": "Calculate tip",
+        "description": "Calculates the tip amount based on the total bill and tip percentage.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "place": {
+                    "type": "string",
+                    "description": "Name of the place or establishment"
+                  },
+                  "totalAmount": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Total bill amount"
+                  },
+                  "tipPercentage": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Percentage of the tip"
+                  }
+                },
+                "required": ["place", "totalAmount", "tipPercentage"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tip calculated successfully"
+          },
+          "400": {
+            "description": "Invalid input, object invalid"
+          }
+        }
+      }
+    },
+    "/tip": {
+      "get": {
+        "tags": ["Tip"],
+        "summary": "Get user's tips",
+        "description": "Retrieve tip records for a specified date range.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+  }
+  
