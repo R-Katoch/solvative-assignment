@@ -5,7 +5,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const compression = require('compression');
+const swaggerUi = require('swagger-ui-express');
 const errorHandler = require('./middleware/errorHandler');
+const { combinedSwagger } = require('./swagger');
 
 const app = express();
 
@@ -35,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/user', userRoute);
 app.use('/tip', tipRoute);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(combinedSwagger));
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

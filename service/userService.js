@@ -51,7 +51,7 @@ const userLoginService = async (email, password) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return { status: 401, message: 'Invalid credentials' };
+      return { status: 401, data: 'Invalid credentials' };
     }
 
     const token = await generateToken(user.userId);
